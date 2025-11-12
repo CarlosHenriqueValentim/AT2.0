@@ -1,0 +1,14 @@
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\bin\Debug\ConsoleApp_AT2.0.exe.config
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\bin\Debug\ConsoleApp_AT2.0.exe
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\bin\Debug\ConsoleApp_AT2.0.pdb
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\bin\Debug\MySql.Data.dll
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\bin\Debug\System.Memory.dll
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\bin\Debug\MySql.Data.xml
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.csproj.AssemblyReference.cache
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.csproj.CoreCompileInputs.cache
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleA.733477BA.Up2Date
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.exe
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.pdb
+C:\Users\Rick\source\repos\ConsoleApp_AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.exe.config
