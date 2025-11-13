@@ -13,61 +13,82 @@ namespace ConsoleApp_AT2._0
 
         public void AlterarPaciente()
         {
-            Console.Write("\nDigite o ID do paciente para alterar: ");
-            string idTexto = Console.ReadLine();
-            int id;
-
-            if (!int.TryParse(idTexto, out id))
-            {
-                Console.WriteLine("\nID inválido.");
-                return;
-            }
-
             try
             {
-                MySqlConnection conn = new MySqlConnection(conexao);
-                conn.Open();
-
-                string select = "SELECT Nome, Preferencial FROM pacientes WHERE Id = @id";
-                MySqlCommand cmdSel = new MySqlCommand(select, conn);
-                cmdSel.Parameters.AddWithValue("@id", id);
-                MySqlDataReader reader = cmdSel.ExecuteReader();
-
-                if (!reader.Read())
+                Console.Write("\nDigite o ID do paciente:");
+                string texto = Console.ReadLine();
+                int id;
+                if (!int.TryParse(texto, out id))
                 {
-                    Console.WriteLine("\nPaciente não encontrado.");
-                    reader.Close();
-                    conn.Close();
+                    Console.WriteLine("\nID inválido\n");
                     return;
                 }
 
-                string nomeAtual = reader.GetString("Nome");
-                bool prefAtual = reader.GetBoolean("Preferencial");
-                reader.Close();
+                using (MySqlConnection conn = new MySqlConnection(conexao))
+                {
+                    conn.Open();
+                    string select = "select nome, preferencial from pacientes where id=@id";
+                    MySqlCommand cmdSel = new MySqlCommand(select, conn);
+                    cmdSel.Parameters.AddWithValue("@id", id);
+                    MySqlDataReader reader = cmdSel.ExecuteReader();
 
-                Console.Write("\nNovo nome (atual: " + nomeAtual + "): ");
-                string novoNome = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(novoNome)) novoNome = nomeAtual;
+                    if (!reader.Read())
+                    {
+                        Console.WriteLine("\nPaciente não encontrado\n");
+                        return;
+                    }
 
-                Console.Write("Paciente é preferencial? (atual: " + (prefAtual ? "Sim" : "Não") + ") (s/n): ");
-                string resp = Console.ReadLine().ToLower();
-                bool novoPref = (resp == "s") ? true : (resp == "n") ? false : prefAtual;
+                    string nome = reader.GetString("nome");
+                    bool pref = reader.GetBoolean("preferencial");
+                    reader.Close();
 
-                string update = "UPDATE pacientes SET Nome=@nome, Preferencial=@pref WHERE Id=@id";
-                MySqlCommand cmdUpd = new MySqlCommand(update, conn);
-                cmdUpd.Parameters.AddWithValue("@nome", novoNome);
-                cmdUpd.Parameters.AddWithValue("@pref", novoPref);
-                cmdUpd.Parameters.AddWithValue("@id", id);
+                    Console.Write("\nNovo nome (Nome atual: " + nome + "):");
+                    string novo = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(novo)) novo = nome;
 
-                cmdUpd.ExecuteNonQuery();
+                    Console.Write("\nÉ preferencial? (atual: " + (pref ? "Preferencial" : "Não Preferencial") + ") (s ou n):");
+                    string resp = Console.ReadLine().ToLower();
+                    bool novoPref = resp == "s" ? true : resp == "n" ? false : pref;
 
-                Console.WriteLine("\nDados atualizados com sucesso");
+                    MySqlCommand upd = new MySqlCommand("update pacientes set nome=@n, preferencial=@p where id=@id", conn);
+                    upd.Parameters.AddWithValue("@n", novo);
+                    upd.Parameters.AddWithValue("@p", novoPref);
+                    upd.Parameters.AddWithValue("@id", id);
+                    upd.ExecuteNonQuery();
 
-                conn.Close();
+                    AtualizarFila(conn);
+                    Console.WriteLine("\nPaciente atualizado com sucesso\n");
+                }
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
-                Console.WriteLine($"\nErro ao atualizar:{ex.Message}\n");
+                Console.WriteLine("\nErro: " + ex.Message + "\n");
+            }
+        }
+
+        private void AtualizarFila(MySqlConnection conn)
+        {
+            string select = "select id from pacientes order by preferencial desc, id asc";
+            MySqlCommand cmd = new MySqlCommand(select, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            int[] ids = new int[1000];
+            int total = 0;
+
+            while (reader.Read())
+            {
+                ids[total] = reader.GetInt32("id");
+                total++;
+            }
+            reader.Close();
+
+            int pos = 1;
+            for (int i = 0; i < total; i++)
+            {
+                MySqlCommand update = new MySqlCommand("update pacientes set numerofila=@n where id=@id", conn);
+                update.Parameters.AddWithValue("@n", pos++);
+                update.Parameters.AddWithValue("@id", ids[i]);
+                update.ExecuteNonQuery();
             }
         }
     }

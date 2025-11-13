@@ -1,5 +1,5 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,39 +15,34 @@ namespace ConsoleApp_AT2._0
         {
             try
             {
-                MySqlConnection conn = new MySqlConnection(conexao);
-                conn.Open();
-
-                string sql = "SELECT Id, Nome, Preferencial, NumeroFila FROM pacientes ORDER BY Preferencial DESC, NumeroFila ASC";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (!reader.HasRows)
+                using (MySqlConnection conn = new MySqlConnection(conexao))
                 {
-                    Console.WriteLine("\nNenhum paciente na fila.\n");
-                    reader.Close();
-                    conn.Close();
-                    return;
+                    conn.Open();
+                    string sql = "select id, nome, preferencial, numerofila from pacientes order by preferencial desc, numerofila asc";
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (!reader.HasRows)
+                    {
+                        Console.WriteLine("\nNenhum paciente na fila\n");
+                        return;
+                    }
+
+                    Console.WriteLine("\n[Fila de Pacientes]\n");
+                    while (reader.Read())
+                    {
+                        int fila = reader.GetInt32("numerofila");
+                        string nome = reader.GetString("nome");
+                        bool pref = reader.GetBoolean("preferencial");
+                        int id = reader.GetInt32("id");
+                        Console.WriteLine(fila + " - " + nome + " (" + (pref ? "Preferencial" : "Não Preferencial") + ") [ID: " + id + "]");
+                    }
+                    Console.WriteLine();
                 }
-
-                Console.WriteLine("\n[Fila de Pacientes]");
-                while (reader.Read())
-                {
-                    int id = reader.GetInt32("Id");
-                    string nome = reader.GetString("Nome");
-                    bool pref = reader.GetBoolean("Preferencial");
-                    int fila = reader.GetInt32("NumeroFila");
-
-                    string tipo = pref ? "Preferencial" : "Normal";
-                    Console.WriteLine(fila + " - " + nome + " (" + tipo + ") [ID: " + id + "]");
-                }
-
-                reader.Close();
-                conn.Close();
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
-                Console.WriteLine($"\nErro ao listar:{ex.Message}\n");
+                Console.WriteLine("\nErro: " + ex.Message + "\n");
             }
         }
     }

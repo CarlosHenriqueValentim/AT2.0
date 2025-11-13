@@ -1,9 +1,5 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp_AT2._0
 {
@@ -15,7 +11,7 @@ namespace ConsoleApp_AT2._0
             {
                 try
                 {
-                    Console.Write("[Menu de Atendimento Hospitalar]\n\n1 - Cadastrar paciente\n2 - Listar fila de pacientes\n3 - Atender paciente\n4 - Alterar dados do paciente\nQ - Sair\n\nEscolha uma opção:");                   
+                    Console.Write("[Menu de Atendimento Hospitalar]\n\n1 - Cadastrar paciente\n2 - Listar fila de pacientes\n3 - Atender paciente\n4 - Alterar dados do paciente\nQ - Sair\n\nEscolha uma opção:");
                     string opcao = Console.ReadLine();
 
                     switch (opcao)
@@ -43,7 +39,7 @@ namespace ConsoleApp_AT2._0
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"\nErro:{ex.Message}\n");
+                    Console.WriteLine("\nErro: " + ex.Message + "\n");
                 }
             }
         }

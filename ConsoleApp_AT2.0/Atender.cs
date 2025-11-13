@@ -15,38 +15,73 @@ namespace ConsoleApp_AT2._0
         {
             try
             {
-                MySqlConnection conn = new MySqlConnection(conexao);
-                conn.Open();
-
-                string sqlSelect = "SELECT Id, Nome FROM pacientes ORDER BY Preferencial DESC, NumeroFila ASC LIMIT 1";
-                MySqlCommand cmdSelect = new MySqlCommand(sqlSelect, conn);
-                MySqlDataReader reader = cmdSelect.ExecuteReader();
-
-                if (!reader.Read())
+                using (MySqlConnection conn = new MySqlConnection(conexao))
                 {
-                    Console.WriteLine("\nNenhum paciente na fila.");
+                    conn.Open();
+                    string select = "select id, nome from pacientes order by preferencial desc, numerofila asc limit 1";
+                    MySqlCommand cmd = new MySqlCommand(select, conn);
+                    MySqlDataReader reader = cmd.ExecuteReader();
+
+                    if (!reader.Read())
+                    {
+                        Console.WriteLine("\nNenhum paciente na fila\n");
+                        reader.Close();
+                        return;
+                    }
+
+                    int id = reader.GetInt32("id");
+                    string nome = reader.GetString("nome");
                     reader.Close();
-                    conn.Close();
-                    return;
+
+                    MySqlCommand del = new MySqlCommand("delete from pacientes where id=@id", conn);
+                    del.Parameters.AddWithValue("@id", id);
+                    del.ExecuteNonQuery();
+
+                    MySqlCommand cnt = new MySqlCommand("select count(*) from pacientes", conn);
+                    int total = Convert.ToInt32(cnt.ExecuteScalar());
+
+                    if (total == 0)
+                    {
+                        MySqlCommand reset = new MySqlCommand("alter table pacientes auto_increment = 1", conn);
+                        reset.ExecuteNonQuery();
+                        Console.WriteLine("\nPaciente atendido: " + nome);
+                    }
+                    else
+                    {
+                        AtualizarFila(conn);
+                        Console.WriteLine("\nPaciente atendido: " + nome + "\n");
+                    }
                 }
-
-                int id = reader.GetInt32("Id");
-                string nome = reader.GetString("Nome");
-
-                reader.Close();
-
-                string sqlDelete = "DELETE FROM pacientes WHERE Id = @id";
-                MySqlCommand cmdDelete = new MySqlCommand(sqlDelete, conn);
-                cmdDelete.Parameters.AddWithValue("@id", id);
-                cmdDelete.ExecuteNonQuery();
-
-                Console.WriteLine("\nAtendendo paciente: " + nome);
-
-                conn.Close();
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("\nErro ao atender: " + ex.Message);
+                Console.WriteLine("\nErro: " + ex.Message + "\n");
+            }
+        }
+
+        private void AtualizarFila(MySqlConnection conn)
+        {
+            string select = "select id from pacientes order by preferencial desc, id asc";
+            MySqlCommand cmd = new MySqlCommand(select, conn);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            int[] ids = new int[1000];
+            int total = 0;
+
+            while (reader.Read())
+            {
+                ids[total] = reader.GetInt32("id");
+                total++;
+            }
+            reader.Close();
+
+            int pos = 1;
+            for (int i = 0; i < total; i++)
+            {
+                MySqlCommand update = new MySqlCommand("update pacientes set numerofila=@n where id=@id", conn);
+                update.Parameters.AddWithValue("@n", pos++);
+                update.Parameters.AddWithValue("@id", ids[i]);
+                update.ExecuteNonQuery();
             }
         }
     }
