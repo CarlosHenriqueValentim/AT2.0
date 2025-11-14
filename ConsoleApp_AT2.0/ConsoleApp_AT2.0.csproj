@@ -46,10 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Atender.cs" />
-    <Compile Include="Atualizar.cs" />
-    <Compile Include="Cadastrar.cs" />
-    <Compile Include="Listar.cs" />
+    <Compile Include="paciente.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

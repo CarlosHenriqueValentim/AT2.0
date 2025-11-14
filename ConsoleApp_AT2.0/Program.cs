@@ -9,41 +9,62 @@ namespace ConsoleApp_AT2._0
 {
     internal class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
+            MySqlConnection conexao = new MySqlConnection("server=localhost;uid=root;pwd=root;database=hosp;port=3306");
+
             for (; ; )
             {
                 try
                 {
                     Console.Write("[Menu de Atendimento Hospitalar]\n\n1 - Cadastrar paciente\n2 - Listar fila de pacientes\n3 - Atender paciente\n4 - Alterar dados do paciente\nQ - Sair\n\nEscolha uma opção:");
-                    string opcao = Console.ReadLine();
+                    string digitodoUsuário = Console.ReadLine();
 
-                    switch (opcao)
+                    if (digitodoUsuário == "1")
                     {
-                        case "1":
-                            new Cadastrar().CadastrarPaciente();
-                            break;
-                        case "2":
-                            new Listar().ListarPacientes();
-                            break;
-                        case "3":
-                            new Atender().AtenderPaciente();
-                            break;
-                        case "4":
-                            new Atualizar().AlterarPaciente();
-                            break;
-                        case "Q":
-                        case "q":
-                            Console.WriteLine("\nSoftware Finalizado :)");
-                            return;
-                        default:
-                            Console.WriteLine("\n(Opção inválida, tente novamente)\n");
-                            break;
+                        paciente NovoPaciente = new paciente();
+                        NovoPaciente.CadastrarPaciente();
+
+                        conexao.Open();
+                        string insert = "INSERT INTO paciente (nome, preferencial, numerofila) VALUES (@nome, @preferencial, @numerofila)";
+                        MySqlCommand cmd = new MySqlCommand(insert, conexao);
+                        cmd.Parameters.AddWithValue("@nome", NovoPaciente.nome);
+                        cmd.Parameters.AddWithValue("@preferencial", NovoPaciente.preferencial);
+                        cmd.ExecuteNonQuery();
+                        conexao.Close(); break;
+                    }
+                    else if (digitodoUsuário == "2")
+                    {
+                        conexao.Open();
+                        string select = "SELECT * FROM pacientes ORDER BY preferencial DESC, numerofila ASC";
+                        MySqlCommand promptdecomando = new MySqlCommand(select, conexao);
+                        MySqlDataReader leitor = promptdecomando.ExecuteReader();
+                        Console.WriteLine("\n[Lista de Pacientes na Fila de Atendimento]\n");
+                        while (leitor.Read())
+                        {
+                            Console.WriteLine("ID: " + leitor["id"] + " | Nome: " + leitor["nome"] + " | Preferencial: " + leitor["preferencial"] + " | Número da Fila: " + leitor["numerofila"]);
+                        }
+                    }
+                    else if (digitodoUsuário == "3")
+                    {
+                        Console.Write("\nManutenção\n");
+                    }
+                    else if (digitodoUsuário == "4")
+                    {
+                        Console.Write("\nManutenção\n");
+                    }
+                    else if (digitodoUsuário == "Q" || digitodoUsuário == "q")
+                    {
+                        Console.Write("\nDepuração Finalizada :)\n"); return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nTecla errada, Tente outras do MENU.\n");
                     }
                 }
-                catch (Exception ex)
+                catch (Exception erro)
                 {
-                    Console.WriteLine("\nErro: " + ex.Message + "\n");
+                    Console.WriteLine("\nERROR 404: " + erro.Message + "\n");
                 }
             }
         }
