@@ -15,11 +15,11 @@ namespace ConsoleApp_AT2._0
 
         public void CadastrarPaciente()
         {          
-                Console.Write("\nDigite o nome do Paciente:");
-                nome = Console.ReadLine();
+            Console.Write("\nDigite o nome do Paciente:");
+            nome = Console.ReadLine();
 
-                Console.Write("\nÉ Preferencial ? (s ou n):");
-                preferencial = Console.ReadLine();         
+            Console.Write("\nÉ Preferencial? (S ou N):");
+            preferencial = Console.ReadLine();         
         }
         public void ListarPacientes()
         {
