@@ -23,7 +23,8 @@ namespace ConsoleApp_AT2._0
         }
         public void ListarPacientes()
         {
-            Console.WriteLine("\n" + numerofila + "-" + nome + "(" + preferencial + ")" + "[" + id + "]");
+            Console.Write("\n[Lista de Pacientes na Fila de Atendimento]\n" +
+            "\n" + numerofila + "-" + nome + "(" + preferencial + ")" + "[" + id + "]");
         }
     }
 }
