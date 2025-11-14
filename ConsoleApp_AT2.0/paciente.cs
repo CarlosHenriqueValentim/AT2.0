@@ -8,18 +8,20 @@ namespace ConsoleApp_AT2._0
 {
     class paciente
     {
-        public string id { get; set; }
+        public int id { get; set; }
         public string nome { get; set; }
         public string preferencial { get; set; }
-        public string numerofila { get; set; }
+        public int numerofila { get; set; }
 
         public void CadastrarPaciente()
-        {
-            Console.Write("\nDigite o nome do Paciente:");
-            nome = Console.ReadLine();
+        {          
+                Console.Write("\nDigite o nome do Paciente:");
+                nome = Console.ReadLine();
 
-            Console.Write("\nÉ Preferencial ? (s ou n):");
-            preferencial = Console.ReadLine();
+                Console.Write("\nÉ Preferencial ? (s ou n):");
+                preferencial = Console.ReadLine();
+            
+                
         }
         public void RegradoPreferencial()
         {

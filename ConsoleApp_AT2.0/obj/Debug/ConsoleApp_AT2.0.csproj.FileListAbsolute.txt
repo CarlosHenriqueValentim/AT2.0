@@ -36,3 +36,17 @@ C:\Users\Rick\Desktop\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.csproj.C
 C:\Users\Rick\Desktop\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleA.733477BA.Up2Date
 C:\Users\Rick\Desktop\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.exe
 C:\Users\Rick\Desktop\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.pdb
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\bin\Debug\ConsoleApp_AT2.0.exe.config
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\bin\Debug\ConsoleApp_AT2.0.exe
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\bin\Debug\ConsoleApp_AT2.0.pdb
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\bin\Debug\MySql.Data.dll
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\bin\Debug\System.Memory.dll
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\bin\Debug\MySql.Data.xml
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.csproj.AssemblyReference.cache
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.exe.config
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.csproj.CoreCompileInputs.cache
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleA.733477BA.Up2Date
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.exe
+C:\Users\lab1067\source\repos\AT2.0\ConsoleApp_AT2.0\obj\Debug\ConsoleApp_AT2.0.pdb
