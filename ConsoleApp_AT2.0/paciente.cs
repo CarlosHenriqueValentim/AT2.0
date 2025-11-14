@@ -19,20 +19,7 @@ namespace ConsoleApp_AT2._0
                 nome = Console.ReadLine();
 
                 Console.Write("\nÉ Preferencial ? (s ou n):");
-                preferencial = Console.ReadLine();
-            
-                
-        }
-        public void RegradoPreferencial()
-        {
-            if (preferencial == "s" || preferencial == "S")
-            {
-                preferencial = "Prefencial";
-            }
-            else
-            {
-                preferencial = "Não Preferencial";
-            }
+                preferencial = Console.ReadLine();         
         }
         public void ListarPacientes()
         {
