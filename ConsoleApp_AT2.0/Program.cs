@@ -28,7 +28,7 @@ namespace ConsoleApp_AT2._0
                     {
                         if (auxiliar >= tamanho)
                         {
-                            Console.WriteLine("Fila Está lotada, espere os Paciente serem atendidos");
+                            Console.WriteLine("Fila Está lotada, espere os Pacientes serem atendidos");
                         }
                         else if (auxiliar < tamanho)
                         {
