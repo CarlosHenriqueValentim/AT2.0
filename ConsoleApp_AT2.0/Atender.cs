@@ -65,7 +65,8 @@ namespace ConsoleApp_AT2._0
             MySqlCommand cmd = new MySqlCommand(select, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            int[] ids = new int[1000];
+            int tamanho = 15;
+            int[] ids = new int[tamanho];
             int total = 0;
 
             while (reader.Read())
