@@ -1,63 +1,39 @@
-﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace ConsoleApp_AT2._0
 {
-    internal class Atualizar
+    internal class Cadastrar
     {
         string conexao = "server=localhost;uid=root;pwd=root;database=hospital;port=3306";
 
-        public void AlterarPaciente()
+        public void CadastrarPaciente()
         {
             try
             {
-                Console.Write("\nDigite o ID do paciente:");
-                string texto = Console.ReadLine();
-                int id;
-                if (!int.TryParse(texto, out id))
-                {
-                    Console.WriteLine("\nID inválido\n");
-                    return;
-                }
+                Console.Write("\nDigite o nome do paciente:");
+                string nome = Console.ReadLine();
+
+                Console.Write("\nO paciente é preferencial? (s ou n):");
+                string resp = Console.ReadLine().ToLower();
+                bool preferencial = resp == "s";
 
                 using (MySqlConnection conn = new MySqlConnection(conexao))
                 {
                     conn.Open();
-                    string select = "select nome, preferencial from pacientes where id=@id";
-                    MySqlCommand cmdSel = new MySqlCommand(select, conn);
-                    cmdSel.Parameters.AddWithValue("@id", id);
-                    MySqlDataReader reader = cmdSel.ExecuteReader();
 
-                    if (!reader.Read())
-                    {
-                        Console.WriteLine("\nPaciente não encontrado\n");
-                        return;
-                    }
-
-                    string nome = reader.GetString("nome");
-                    bool pref = reader.GetBoolean("preferencial");
-                    reader.Close();
-
-                    Console.Write("\nNovo nome (Nome atual: " + nome + "):");
-                    string novo = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(novo)) novo = nome;
-
-                    Console.Write("\nÉ preferencial? (atual: " + (pref ? "Preferencial" : "Não Preferencial") + ") (s ou n):");
-                    string resp = Console.ReadLine().ToLower();
-                    bool novoPref = resp == "s" ? true : resp == "n" ? false : pref;
-
-                    MySqlCommand upd = new MySqlCommand("update pacientes set nome=@n, preferencial=@p where id=@id", conn);
-                    upd.Parameters.AddWithValue("@n", novo);
-                    upd.Parameters.AddWithValue("@p", novoPref);
-                    upd.Parameters.AddWithValue("@id", id);
-                    upd.ExecuteNonQuery();
+                    string insert = "insert into pacientes (nome, preferencial, numerofila) values (@n, @p, 0)";
+                    MySqlCommand cmd = new MySqlCommand(insert, conn);
+                    cmd.Parameters.AddWithValue("@n", nome);
+                    cmd.Parameters.AddWithValue("@p", preferencial);
+                    cmd.ExecuteNonQuery();
 
                     AtualizarFila(conn);
-                    Console.WriteLine("\nPaciente atualizado com sucesso\n");
+                    Console.WriteLine("\nPaciente cadastrado com sucesso\n");
                 }
             }
             catch (Exception ex)
@@ -78,9 +54,16 @@ namespace ConsoleApp_AT2._0
 
             while (reader.Read())
             {
+                if (total >= tamanho)
+                {
+                    Console.WriteLine("\nA fila está cheia! Máximo permitido: 15 pacientes.\n");
+                    break;
+                }
+
                 ids[total] = reader.GetInt32("id");
                 total++;
             }
+
             reader.Close();
 
             int pos = 1;
