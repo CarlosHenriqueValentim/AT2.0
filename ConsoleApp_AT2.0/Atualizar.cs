@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +27,7 @@ namespace ConsoleApp_AT2._0
                 using (MySqlConnection conn = new MySqlConnection(conexao))
                 {
                     conn.Open();
+
                     string select = "select nome, preferencial from pacientes where id=@id";
                     MySqlCommand cmdSel = new MySqlCommand(select, conn);
                     cmdSel.Parameters.AddWithValue("@id", id);
@@ -78,9 +79,16 @@ namespace ConsoleApp_AT2._0
 
             while (reader.Read())
             {
+                if (total >= tamanho)
+                {
+                    Console.WriteLine("\nA fila está cheia! Máximo permitido: 15 pacientes.\n");
+                    break;
+                }
+
                 ids[total] = reader.GetInt32("id");
                 total++;
             }
+
             reader.Close();
 
             int pos = 1;
