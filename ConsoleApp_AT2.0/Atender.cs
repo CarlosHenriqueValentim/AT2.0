@@ -53,13 +53,13 @@ namespace ConsoleApp_AT2._0
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception erro)
             {
-                Console.WriteLine("\nErro: " + ex.Message + "\n");
+                Console.WriteLine("\nErro: " + erro.Message + "\n");
             }
         }
 
-        private void AtualizarFila(MySqlConnection conn)
+        public void AtualizarFila(MySqlConnection conn)
         {
             string select = "select id from pacientes order by preferencial desc, id asc";
             MySqlCommand cmd = new MySqlCommand(select, conn);

@@ -9,7 +9,7 @@ namespace ConsoleApp_AT2._0
 {
     internal class Cadastrar
     {
-        string conexao = "server=localhost;uid=root;pwd=root;database=hospital;port=3306";
+        string conexao = "server=localhost;uid=root;pwd=root;database=hospital;port=3307";
 
         public void CadastrarPaciente()
         {
@@ -18,8 +18,8 @@ namespace ConsoleApp_AT2._0
                 Console.Write("\nDigite o nome do paciente:");
                 string nome = Console.ReadLine();
 
-                Console.Write("\nO paciente é preferencial? (s ou n):");
-                string resp = Console.ReadLine().ToLower();
+                Console.Write("\nO paciente é preferencial? (Sim ou Não)? digite s ou n:");
+                string resp = Console.ReadLine();
                 bool preferencial = resp == "s";
 
                 using (MySqlConnection conn = new MySqlConnection(conexao))
@@ -36,13 +36,13 @@ namespace ConsoleApp_AT2._0
                     Console.WriteLine("\nPaciente cadastrado com sucesso\n");
                 }
             }
-            catch (Exception ex)
+            catch (Exception erro)
             {
-                Console.WriteLine("\nErro: " + ex.Message + "\n");
+                Console.WriteLine("\nErro: " + erro.Message + "\n");
             }
         }
 
-        private void AtualizarFila(MySqlConnection conn)
+        public void AtualizarFila(MySqlConnection conn)
         {
             string select = "select id from pacientes order by preferencial desc, id asc";
             MySqlCommand cmd = new MySqlCommand(select, conn);

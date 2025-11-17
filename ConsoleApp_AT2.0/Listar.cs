@@ -9,17 +9,17 @@ namespace ConsoleApp_AT2._0
 {
     class Listar
     {
-        string conexao = "server=localhost;uid=root;pwd=root;database=hospital;port=3306";
+        string conexao = "server=localhost;uid=root;pwd=root;database=hospital;port=3307";
 
         public void ListarPacientes()
         {
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(conexao))
+                using (MySqlConnection conec = new MySqlConnection(conexao))
                 {
-                    conn.Open();
+                    conec.Open();
                     string sql = "select id, nome, preferencial, numerofila from pacientes order by preferencial desc, numerofila asc";
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    MySqlCommand cmd = new MySqlCommand(sql, conec);
                     MySqlDataReader reader = cmd.ExecuteReader();
 
                     if (!reader.HasRows)
@@ -40,9 +40,9 @@ namespace ConsoleApp_AT2._0
                     Console.WriteLine();
                 }
             }
-            catch (Exception ex)
+            catch (Exception erro)
             {
-                Console.WriteLine("\nErro: " + ex.Message + "\n");
+                Console.WriteLine("\nErro: " + erro.Message + "\n");
             }
         }
     }

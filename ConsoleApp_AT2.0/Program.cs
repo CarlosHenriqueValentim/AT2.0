@@ -41,9 +41,9 @@ namespace ConsoleApp_AT2._0
                             break;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception erro)
                 {
-                    Console.WriteLine("\nErro: " + ex.Message + "\n");
+                    Console.WriteLine("\nErro: " + erro.Message + "\n");
                 }
             }
         }
