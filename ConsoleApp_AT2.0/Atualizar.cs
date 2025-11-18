@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp_AT2._0
 {
-    internal class Atualizar
+    class Atualizar
     {
         string conexao = "server=localhost;uid=root;pwd=root;database=H;port=3306";
 
