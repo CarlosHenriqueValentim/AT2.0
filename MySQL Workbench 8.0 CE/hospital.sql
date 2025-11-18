@@ -1,6 +1,6 @@
-drop database if exists hospital;
-create database if not exists hospital;
-use hospital;
+drop database if exists H;
+create database if not exists H;
+use H;
 
 drop table if exists pacientes;
 create table if not exists pacientes (
