@@ -9,7 +9,7 @@ namespace ConsoleApp_AT2._0
 {
     internal class Cadastrar
     {
-        string conexao = "server=localhost;uid=root;pwd=root;database=hospital;port=3306";
+        string conexao = "server=localhost;uid=root;pwd=root;database=H;port=3306";
 
         public void CadastrarPaciente()
         {
