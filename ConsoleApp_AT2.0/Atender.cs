@@ -40,7 +40,7 @@ namespace ConsoleApp_AT2._0
                     MySqlCommand cnt = new MySqlCommand("select count(*) from pacientes", conn);
                     int total = Convert.ToInt32(cnt.ExecuteScalar());
 
-                    if (total == 0)
+                    if (auxiliar == 0)
                     {
                         MySqlCommand reset = new MySqlCommand("alter table pacientes auto_increment = 1", conn);
                         reset.ExecuteNonQuery();
