@@ -50,24 +50,24 @@ namespace ConsoleApp_AT2._0
 
             int tamanho = 15;
             int[] ids = new int[tamanho];
-            int total = 0;
+            int auxiliar = 0;
 
             while (reader.Read())
             {
-                if (total >= tamanho)
+                if (auxiliar >= tamanho)
                 {
                     Console.WriteLine("\nA fila está cheia! Máximo permitido: 15 pacientes.\n");
                     break;
                 }
 
-                ids[total] = reader.GetInt32("id");
-                total++;
+                ids[auxiliar] = reader.GetInt32("id");
+                auxiliar++;
             }
 
             reader.Close();
 
             int pos = 1;
-            for (int i = 0; i < total; i++)
+            for (int i = 0; i < auxiliar; i++)
             {
                 MySqlCommand update = new MySqlCommand("update pacientes set numerofila=@n where id=@id", conn);
                 update.Parameters.AddWithValue("@n", pos++);
