@@ -9,7 +9,7 @@ namespace ConsoleApp_AT2._0
 {
     internal class Cadastrar
     {
-        string conexao = "server=localhost;uid=root;pwd=root;database=hospital;port=3307";
+        string conexao = "server=localhost;uid=root;pwd=root;database=hospital;port=3306";
 
         public void CadastrarPaciente()
         {
@@ -18,7 +18,7 @@ namespace ConsoleApp_AT2._0
                 Console.Write("\nDigite o nome do paciente:");
                 string nome = Console.ReadLine();
 
-                Console.Write("\nO paciente é preferencial? (Sim ou Não)? digite s ou n:");
+                Console.Write("\nO paciente é preferencial? (s ou n):");
                 string resp = Console.ReadLine();
                 bool preferencial = resp == "s";
 
