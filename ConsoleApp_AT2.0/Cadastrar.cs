@@ -7,7 +7,7 @@ using MySql.Data.MySqlClient;
 
 namespace ConsoleApp_AT2._0
 {
-    internal class Cadastrar
+    class Cadastrar
     {
         string conexao = "server=localhost;uid=root;pwd=root;database=H;port=3306";
 
